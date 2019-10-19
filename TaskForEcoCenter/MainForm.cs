@@ -21,7 +21,7 @@ namespace TaskForEcoCenter
         static List<Book> books = new List<Book>();
        
          
-        void openFile()
+        void openFile() //функция выбора открываемого файла
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -30,19 +30,34 @@ namespace TaskForEcoCenter
 
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
-                    books = OpenFile.open(ofd.FileName);
+                    books = OpenFile.open(ofd.FileName); //открытие и чтение файла
                     MainDGV.RowCount = books.Count;
-                    Scripts.outputBooksStore(MainDGV ,books);                
+                    Scripts.outputBooksStore(MainDGV ,books);  //вывод информации на экран              
                 }
             }
         }
+
+        void saveFile()
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.InitialDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
+                sfd.Filter = "xml files (*.xml)|*.xml";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName); //сохранение файла
+                }
+            }
+        }
+    
 
 
 
         public MainForm()
         {
             InitializeComponent();
-            Scripts.setUpDataGridView(MainDGV);
+            Scripts.setUpDataGridView(MainDGV); //начальная подготовка DataGridView к работе
         }
 
 
@@ -53,16 +68,7 @@ namespace TaskForEcoCenter
 
         private void SaveXMLButton_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.InitialDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
-                sfd.Filter = "xml files (*.xml)|*.xml";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName);
-                }
-            }
+            saveFile();
         }
 
         private void DeleteRecordButton_Click(object sender, EventArgs e)
@@ -90,11 +96,11 @@ namespace TaskForEcoCenter
 
         private void AddRecordButton_Click(object sender, EventArgs e)
         {
-            AddBookForm addBookForm = new AddBookForm();
+            AddBookForm addBookForm = new AddBookForm(); 
             if(addBookForm.ShowDialog() == DialogResult.OK)
             {
-                books.Add(addBookForm.Book);
-                Scripts.outputBooksStore(MainDGV, books); 
+                books.Add(addBookForm.Book); //добавление созданной книги к списку уже существующих
+                Scripts.outputBooksStore(MainDGV, books);  //вывод новой информации на экран
             }
         }
 
@@ -107,8 +113,8 @@ namespace TaskForEcoCenter
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName);
-                    TransformUtils.transform(sfd.FileName);
+                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName); //создание xml файла содержащего текущую информацию на экране
+                    TransformUtils.transform(sfd.FileName); //создание html страницы по этому файлу
                 }
             }
         }
