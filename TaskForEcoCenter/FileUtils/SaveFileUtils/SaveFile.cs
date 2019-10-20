@@ -11,6 +11,11 @@ namespace TaskForEcoCenter.FileUtils.SaveFileUtils
 {
     public static class SaveFile
     {
+        /// <summary>
+        /// Формирует XML документ по списку книг
+        /// </summary>
+        /// <param name="books">Список книг</param>
+        /// <returns>XML документ содержащий список книг</returns>
         private static XDocument GetXMLDocument(List<Book> books)
         {
             XDocument xdoc = new XDocument();
@@ -21,19 +26,35 @@ namespace TaskForEcoCenter.FileUtils.SaveFileUtils
             
         }
 
+        /// <summary>
+        /// Сохраняет XML документ по заданному пути
+        /// </summary>
+        /// <param name="books">Список книг</param>
+        /// <param name="filename">Путь к файлу</param>
         public static void Save(List<Book> books, string filename)
         {
             XDocument xDocument = GetXMLDocument(books);
             xDocument.Save(filename);
         }
 
-        private static List<XElement> getAuthors(List<String> authors)
+        /// <summary>
+        /// Создает список XElement, содержащий всех авторов данной книги
+        /// </summary>
+        /// <param name="authors">Список авторов</param>
+        /// <returns>Список XElement со всеми авторами</returns>
+        private static List<XElement> getAuthors(List<string> authors)
         {
             List<XElement> result = new List<XElement>();
             authors.ForEach(i => result.Add(new XElement("author", i)));
             return result;
         }
 
+
+        /// <summary>
+        /// Создает XML код для каждой книги
+        /// </summary>
+        /// <param name="book">Экземпляр класса книги, для которого делается XML</param>
+        /// <returns>XElement, содержащий информацию о книге</returns>
         private static XElement getBookXml(Book book)
         {
             XElement xbook = new XElement("book");
@@ -52,10 +73,10 @@ namespace TaskForEcoCenter.FileUtils.SaveFileUtils
             XElement price = new XElement("price", book.Price.ToString(CultureInfo.InvariantCulture));
 
                    
-            xbook.Add(title);
-            authors.ForEach(i => xbook.Add(i));
-            xbook.Add(year);
-            xbook.Add(price);
+            xbook.Add(title); //добавление в XML названия книги
+            authors.ForEach(i => xbook.Add(i)); //добавление в XML всех авторов
+            xbook.Add(year); //добавление в XML года выпуска
+            xbook.Add(price); //добавление в XML цены
             return xbook;
         }
     }

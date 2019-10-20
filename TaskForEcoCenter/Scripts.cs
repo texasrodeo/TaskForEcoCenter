@@ -10,6 +10,10 @@ namespace TaskForEcoCenter
 {
     public static class Scripts
     {
+        /// <summary>
+        /// Подгатавливает DataGridView к работе
+        /// <param name="dgv">DataGridView c которой будет происходить работа</param>
+        /// </summary>
         public static void setUpDataGridView(DataGridView dgv)
         {
             dgv.ColumnCount = 8;
@@ -24,6 +28,12 @@ namespace TaskForEcoCenter
             dgv.Columns[7].Name = "Обложка";
         }
 
+        /// <summary>
+        /// Вывод очередной книги в DataGridView
+        /// <param name="dgv">DataGridView c которой будет происходить работа</param>
+        /// <param name="book">Экземпляр класса книги, информацию о которой будем выводить</param>
+        /// <param name="rownumber">Номер строки в DataGridView куда будем выводить</param>
+        /// </summary>
         private static void outputBook(DataGridView dgv, Book book, int rownumber)
         {
             string[] info = book.ToString();
@@ -35,6 +45,11 @@ namespace TaskForEcoCenter
             }
         }
 
+        /// <summary>
+        /// Вывод списка книг в DataGridView
+        /// <param name="dgv">DataGridView c которой будет происходить работа</param>
+        /// <param name="books">Список книг информацию о которых будем выводить</param>
+        /// </summary>
         public static void outputBooksStore(DataGridView dgv, List<Book> books)
         {
             if(books.Count == 0)
@@ -50,6 +65,11 @@ namespace TaskForEcoCenter
 
         }
 
+        /// <summary>
+        /// Получает список авторов книги
+        /// <param name="authors">строка со всеми авторами книги</param>
+        /// </summary>
+        /// <returns>Список всех авторов</returns>
         public static List<String> getAuthors(string authors)
         {
             List<string> result = new List<string>();
@@ -61,6 +81,11 @@ namespace TaskForEcoCenter
             return result;
         }
 
+        /// <summary>
+        /// Получает список книг из DataGridView
+        ///<param name="dgv">DataGridView из которой получаем информацию</param>
+        /// </summary>
+        /// <returns>Список всех авторов</returns>
         public static List<Book> constructBookList(DataGridView dgv)
         {
             List<Book> books = new List<Book>();

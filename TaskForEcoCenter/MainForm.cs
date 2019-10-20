@@ -19,9 +19,12 @@ namespace TaskForEcoCenter
     public partial class MainForm : Form
     {
         static List<Book> books = new List<Book>();
-       
-         
-        void openFile() //функция выбора открываемого файла
+
+
+        /// <summary>
+        /// Открывает и читает выбранный XML файл, и строит по нему список книг 
+        /// </summary>
+        void openFile() 
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -30,13 +33,16 @@ namespace TaskForEcoCenter
 
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
-                    books = OpenFile.open(ofd.FileName); //открытие и чтение файла
+                    books = OpenFile.read(ofd.FileName); //открытие и чтение файла
                     MainDGV.RowCount = books.Count;
                     Scripts.outputBooksStore(MainDGV ,books);  //вывод информации на экран              
                 }
             }
         }
 
+        /// <summary>
+        /// СОхраняет информацию в DataGridView в выбранный XML файл
+        /// </summary>
         void saveFile()
         {
             using (SaveFileDialog sfd = new SaveFileDialog())
@@ -47,6 +53,62 @@ namespace TaskForEcoCenter
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName); //сохранение файла
+                }
+            }
+        }
+
+        /// <summary>
+        /// Удаляют книгу с выбранным пользователем кодом
+        /// </summary>
+        void deleteREcord()
+        {
+            List<int> ID = new List<int>();
+            if (books.Count == 0)
+            {
+                MessageBox.Show("Список книг пуст");
+            }
+            else
+            {
+                for (int i = 0; i < MainDGV.RowCount; i++)
+                {
+                    ID.Add(Convert.ToInt32(MainDGV[0, i].Value));
+                }
+                ChooseIDForm chooseIDForm = new ChooseIDForm(ID);
+                if (chooseIDForm.ShowDialog() == DialogResult.OK)
+                {
+                    books.RemoveAt(chooseIDForm.Choice);
+                    Scripts.outputBooksStore(MainDGV, books);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Добавляет в список новую книгу
+        /// </summary>
+        void addRecord()
+        {
+            AddBookForm addBookForm = new AddBookForm();
+            if (addBookForm.ShowDialog() == DialogResult.OK)
+            {
+                books.Add(addBookForm.Book); //добавление созданной книги к списку уже существующих
+                Scripts.outputBooksStore(MainDGV, books);  //вывод новой информации на экран
+            }
+        }
+
+        /// <summary>
+        /// Сохраняет текущее состояние DataGridView в XML файл и строит по нему html файл
+        /// </summary>
+        void htmlReport()
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.InitialDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
+                sfd.Filter = "xml files (*.xml)|*.xml";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName); //создание xml файла содержащего текущую информацию на экране
+                    TransformUtils.transform(sfd.FileName); //создание html страницы по этому файлу
                 }
             }
         }
@@ -73,50 +135,18 @@ namespace TaskForEcoCenter
 
         private void DeleteRecordButton_Click(object sender, EventArgs e)
         {
-            List<int> ID = new List<int>();
-            if(books.Count == 0)
-            {
-                MessageBox.Show("Список книг пуст");
-            }
-            else
-            {
-                for (int i = 0; i < MainDGV.RowCount; i++)
-                {
-                    ID.Add(Convert.ToInt32(MainDGV[0, i].Value));
-                }
-                ChooseIDForm chooseIDForm = new ChooseIDForm(ID);
-                if (chooseIDForm.ShowDialog() == DialogResult.OK)
-                {
-                    books.RemoveAt(chooseIDForm.Choice);
-                    Scripts.outputBooksStore(MainDGV, books);
-                }
-            }
+            deleteREcord();
            
         }
 
         private void AddRecordButton_Click(object sender, EventArgs e)
         {
-            AddBookForm addBookForm = new AddBookForm(); 
-            if(addBookForm.ShowDialog() == DialogResult.OK)
-            {
-                books.Add(addBookForm.Book); //добавление созданной книги к списку уже существующих
-                Scripts.outputBooksStore(MainDGV, books);  //вывод новой информации на экран
-            }
+            addRecord();
         }
 
         private void HTMLReport_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.InitialDirectory = Path.GetDirectoryName(Environment.CurrentDirectory);
-                sfd.Filter = "xml files (*.xml)|*.xml";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    SaveFile.Save(Scripts.constructBookList(MainDGV), sfd.FileName); //создание xml файла содержащего текущую информацию на экране
-                    TransformUtils.transform(sfd.FileName); //создание html страницы по этому файлу
-                }
-            }
+            htmlReport();
         }
     }
 }

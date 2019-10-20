@@ -12,9 +12,13 @@ namespace TaskForEcoCenter
 {
     public partial class ChooseIDForm : Form
     {
-         List<int> ID = new List<int>();
+         List<int> ID = new List<int>();//коды книг
         int choice;
 
+        /// <summary>
+        /// Получает выбранный пользователем код книги
+        /// </summary>
+        /// <value>Код книги</value>
         public int Choice
         {
             get
@@ -23,6 +27,10 @@ namespace TaskForEcoCenter
             }
         }
 
+        /// <summary>
+        /// Заполняет DropDownList, вводя туда все коды существующих книг
+        /// </summary>
+        /// <returns>Список книг</returns>
         private void constructCB()
         {
             IDChooseCB.DropDownStyle = ComboBoxStyle.DropDownList;

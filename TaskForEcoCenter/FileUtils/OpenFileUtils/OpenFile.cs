@@ -12,8 +12,14 @@ namespace TaskForEcoCenter.FileUtils.OpenFileUtils
 {
     public static class OpenFile
     {
-        public static List<Book> open(string fileName)
+        /// <summary>
+        /// Читает файл и формирует список книг
+        /// </summary>
+        /// <param name="fileName">Имя читаемого файла</param>
+        /// <returns>Список книг</returns>
+        public static List<Book> read(string fileName)
         {
+        
             List<Book> books = new List<Book>();
             XmlDocument xml = new XmlDocument();
             xml.Load(fileName);
@@ -21,15 +27,15 @@ namespace TaskForEcoCenter.FileUtils.OpenFileUtils
             foreach(XmlNode xmlNode in root)
             {
                 Book book = new Book();
-                XmlNode attr = xmlNode.Attributes.GetNamedItem("category");
+                XmlNode attr = xmlNode.Attributes.GetNamedItem("category");//добавление атрибута категории при наличии
                 if (attr != null)
                     book.Category = attr.Value;
-                attr = xmlNode.Attributes.GetNamedItem("cover");
+                attr = xmlNode.Attributes.GetNamedItem("cover");//добавление атрибута обложки при наличии
                 if (attr != null)
                     book.Cover = attr.Value;
                 else
                     book.Cover = null;
-                foreach (XmlNode childnode in xmlNode.ChildNodes)
+                foreach (XmlNode childnode in xmlNode.ChildNodes) //обход всех дочерних узлов
                 {
                     if (childnode.Name == "title")
                     {
@@ -38,8 +44,7 @@ namespace TaskForEcoCenter.FileUtils.OpenFileUtils
                         if (lang != null)
                             book.Language = lang.Value;
                     }
-                       
-
+                     
                     if (childnode.Name == "author")
                         book.Author.Add(childnode.InnerText);
 
@@ -49,7 +54,6 @@ namespace TaskForEcoCenter.FileUtils.OpenFileUtils
                     if (childnode.Name == "price")
                         book.Price = Double.Parse(childnode.InnerText, CultureInfo.InvariantCulture);
                     
-
                 }
                 books.Add(book);
             }

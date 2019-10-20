@@ -11,22 +11,62 @@ namespace TaskForEcoCenter
     {
         private static string noCoverInfo = "No info about cover";
 
+        /// <summary>
+        /// Получает название книги
+        /// </summary>
+        /// <value>Название книги</value>
         public string Title { get; set; }
+
+        /// <summary>
+        /// Получает список авторов книги
+        /// </summary>
+        /// <value>Список авторов книги</value>
         public List<String> Author { get; set; }
+
+        /// <summary>
+        /// Получает категорию книги
+        /// </summary>
+        /// <value>Категория книги</value>
         public string Category { get; set; }
+
+        /// <summary>
+        /// Получает год выпуска книги
+        /// </summary>
+        /// <value>Год выпуска книги</value>
         public int Year { get; set; }
+
+        /// <summary>
+        /// Получает цену книги
+        /// </summary>
+        /// <value>Цена книги</value>
         public double Price { get; set; }
 
+        /// <summary>
+        /// Получает язык написания книги
+        /// </summary>
+        /// <value>Язык написания книги</value>
         public string Language { get; set; }
 
+        /// <summary>
+        /// Получает информацию об обложке книги
+        /// </summary>
+        /// <value>Информацию об обложке книги</value>
         public string Cover { get; set; }
 
+        /// <summary>
+        /// Получает строку для сигнализирования отсутствия информации об обложке
+        /// </summary>
+        /// <value>Строка с сообщением об отсутствии информации об обложке</value>
         public static string NoCoverInfo { get
             {
                 return noCoverInfo;
             }
         }
 
+        /// <summary>
+        /// Новый метод ToString() возвращающий всю информацию о книге
+        /// </summary>
+        /// <returns>Массив строк все всей информацией о книге</returns>
         new public string[] ToString()
         {
             string[] result = new string[7];
@@ -47,6 +87,10 @@ namespace TaskForEcoCenter
             return result;
         }
 
+        /// <summary>
+        /// Возвращает строку со всеми авторами книги
+        /// </summary>
+        /// <returns>Строка, содержащая всех авторов</returns>
         string getAuthors()
         {
             var result = "";
