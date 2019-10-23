@@ -36,26 +36,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(16, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 13);
+            this.label1.Size = new System.Drawing.Size(327, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Выберите ID книги, которую хотите удалить";
+            this.label1.Text = "Выберите номер книги, которую хотите удалить";
             // 
             // IDChooseCB
             // 
             this.IDChooseCB.FormattingEnabled = true;
-            this.IDChooseCB.Location = new System.Drawing.Point(12, 25);
+            this.IDChooseCB.Location = new System.Drawing.Point(16, 31);
+            this.IDChooseCB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.IDChooseCB.Name = "IDChooseCB";
-            this.IDChooseCB.Size = new System.Drawing.Size(121, 21);
+            this.IDChooseCB.Size = new System.Drawing.Size(160, 24);
             this.IDChooseCB.TabIndex = 1;
             // 
             // Apply
             // 
             this.Apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Apply.Location = new System.Drawing.Point(213, 61);
+            this.Apply.Location = new System.Drawing.Point(284, 75);
+            this.Apply.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Apply.Name = "Apply";
-            this.Apply.Size = new System.Drawing.Size(84, 23);
+            this.Apply.Size = new System.Drawing.Size(112, 28);
             this.Apply.TabIndex = 2;
             this.Apply.Text = "Подтвердить";
             this.Apply.UseVisualStyleBackColor = true;
@@ -63,12 +66,13 @@
             // 
             // ChooseIDForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 96);
+            this.ClientSize = new System.Drawing.Size(412, 118);
             this.Controls.Add(this.Apply);
             this.Controls.Add(this.IDChooseCB);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ChooseIDForm";
             this.Text = "ChooseIDForm";
             this.ResumeLayout(false);

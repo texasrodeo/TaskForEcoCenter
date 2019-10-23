@@ -54,22 +54,23 @@ namespace TaskForEcoCenter
         /// Получает список книг из DataGridView
         ///<param name="dgv">DataGridView из которой получаем информацию</param>
         /// </summary>
-        /// <returns>Список всех авторов</returns>
+        /// <returns>Список всех книг</returns>
         public static List<Book> constructBookList(DataGridView dgv)
         {
             List<Book> books = new List<Book>();
             for (int i = 0; i < dgv.RowCount; i++)
             {
-                string title = dgv[1, i].Value.ToString();
-                List<string> authors = getAuthors(dgv[2, i].Value.ToString());
-                string category = dgv[3, i].Value.ToString();
-                int year = Convert.ToInt32(dgv[4, i].Value.ToString());
-                double price = Double.Parse(dgv[5, i].Value.ToString().Replace(',','.'), CultureInfo.InvariantCulture);
-                string language = dgv[6, i].Value.ToString();
+               // string title = dgv[1, i].Value.ToString();
+                string title = dgv[dgv.Columns["Title"].Index,i].Value.ToString();
+                List<string> authors = getAuthors(dgv[dgv.Columns["Authors"].Index, i].Value.ToString());
+                string category = dgv[dgv.Columns["Category"].Index, i].Value.ToString();
+                int year = Convert.ToInt32(dgv[dgv.Columns["Year"].Index, i].Value.ToString());
+                double price = Double.Parse(dgv[dgv.Columns["Price"].Index, i].Value.ToString().Replace(',','.'), CultureInfo.InvariantCulture);
+                string language = dgv[dgv.Columns["Language"].Index, i].Value.ToString();
                 string cover;
-                if (dgv[7, i].Value.ToString() != Book.NoCoverInfo)
+                if (dgv[dgv.Columns["Cover"].Index, i].Value.ToString() != Book.NoCoverInfo)
                 {
-                    cover = dgv[7, i].Value.ToString();
+                    cover = dgv[dgv.Columns["Cover"].Index, i].Value.ToString();
                 }
                 else
                 {
