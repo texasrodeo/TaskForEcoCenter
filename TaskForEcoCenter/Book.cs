@@ -10,6 +10,7 @@ namespace TaskForEcoCenter
     public class Book
     {
         private static string noCoverInfo = "No info about cover";
+        private string cover;
 
         /// <summary>
         /// Получает название книги
@@ -17,11 +18,11 @@ namespace TaskForEcoCenter
         /// <value>Название книги</value>
         public string Title { get; set; }
 
-        /// <summary>
-        /// Получает список авторов книги
-        /// </summary>
-        /// <value>Список авторов книги</value>
-        public List<String> Author { get; set; }
+
+
+        public List<String> Authors { get; set; }
+
+
 
         /// <summary>
         /// Получает категорию книги
@@ -51,7 +52,20 @@ namespace TaskForEcoCenter
         /// Получает информацию об обложке книги
         /// </summary>
         /// <value>Информацию об обложке книги</value>
-        public string Cover { get; set; }
+        public string Cover {
+            get
+            {
+                if (cover != null)
+                    return cover;
+                else
+                    return noCoverInfo;
+            }
+            set 
+            {
+                cover = value;
+            }
+
+        }
 
         /// <summary>
         /// Получает строку для сигнализирования отсутствия информации об обложке
@@ -76,15 +90,18 @@ namespace TaskForEcoCenter
             result[3] = Year.ToString();
             result[4] = Price.ToString();
             result[5] = Language;
-            if(Cover != null)
-            {
-                result[6] = Cover;
-            }
-            else
-            {
-                result[6] = noCoverInfo;
-            }
+            result[6] = Cover;
             return result;
+        }
+
+
+        /// <summary>
+        /// Получает список авторов книги в виде строки
+        /// </summary>
+        /// <returns>Список авторов книги</returns>
+        public string AuthorsToString()
+        {
+            return getAuthors();
         }
 
         /// <summary>
@@ -94,7 +111,7 @@ namespace TaskForEcoCenter
         string getAuthors()
         {
             var result = "";
-            Author.ForEach(i => result += i + ";");
+            Authors.ForEach(i => result += i + ";");
             result = result.Remove(result.Length - 1);
             return result; 
         }
@@ -102,7 +119,7 @@ namespace TaskForEcoCenter
         public Book(string title, List<String> author, string category, int year, double price, string language, string cover)
         {
             this.Title = title;
-            this.Author = author;
+            this.Authors = author;
             this.Category = category;
             this.Year =year;
             this.Price = price;
@@ -112,7 +129,7 @@ namespace TaskForEcoCenter
 
         public Book()
         {
-            Author = new List<string>();
+            Authors = new List<string>();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace TaskForEcoCenter.FileUtils.OpenFileUtils
                     }
                      
                     if (childnode.Name == "author")
-                        book.Author.Add(childnode.InnerText);
+                        book.Authors.Add(childnode.InnerText);
 
                     if (childnode.Name == "year")
                         book.Year = Convert.ToInt32(childnode.InnerText);

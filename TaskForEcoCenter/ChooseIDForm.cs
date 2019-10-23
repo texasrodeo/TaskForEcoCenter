@@ -47,7 +47,7 @@ namespace TaskForEcoCenter
 
         private void Apply_Click(object sender, EventArgs e)
         {
-            choice = Convert.ToInt32(IDChooseCB.SelectedItem);
+            choice = Convert.ToInt32(IDChooseCB.SelectedItem) - 1;
         }
     }
 }

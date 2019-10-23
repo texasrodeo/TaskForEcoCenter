@@ -34,7 +34,7 @@ namespace TaskForEcoCenter
                 if(ofd.ShowDialog() == DialogResult.OK)
                 {
                     books = OpenFile.read(ofd.FileName); //открытие и чтение файла
-                    MainDGV.RowCount = books.Count;
+                    
                     Scripts.outputBooksStore(MainDGV ,books);  //вывод информации на экран              
                 }
             }
@@ -119,7 +119,7 @@ namespace TaskForEcoCenter
         public MainForm()
         {
             InitializeComponent();
-            Scripts.setUpDataGridView(MainDGV); //начальная подготовка DataGridView к работе
+            //Scripts.setUpDataGridView(MainDGV); //начальная подготовка DataGridView к работе
         }
 
 

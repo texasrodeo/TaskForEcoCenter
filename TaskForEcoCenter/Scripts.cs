@@ -11,57 +11,26 @@ namespace TaskForEcoCenter
     public static class Scripts
     {
         /// <summary>
-        /// Подгатавливает DataGridView к работе
-        /// <param name="dgv">DataGridView c которой будет происходить работа</param>
-        /// </summary>
-        public static void setUpDataGridView(DataGridView dgv)
-        {
-            dgv.ColumnCount = 8;
-            dgv.Columns[0].Name = "ID книги";
-            dgv.Columns[1].Name = "Книга";
-            dgv.Columns[2].Name = "Автор";
-            dgv.Columns[2].Width = 300;
-            dgv.Columns[3].Name = "Категория";
-            dgv.Columns[4].Name = "Год";
-            dgv.Columns[5].Name = "Цена";
-            dgv.Columns[6].Name = "Язык";
-            dgv.Columns[7].Name = "Обложка";
-        }
-
-        /// <summary>
-        /// Вывод очередной книги в DataGridView
-        /// <param name="dgv">DataGridView c которой будет происходить работа</param>
-        /// <param name="book">Экземпляр класса книги, информацию о которой будем выводить</param>
-        /// <param name="rownumber">Номер строки в DataGridView куда будем выводить</param>
-        /// </summary>
-        private static void outputBook(DataGridView dgv, Book book, int rownumber)
-        {
-            string[] info = book.ToString();
-            dgv[0, rownumber].Value = rownumber.ToString();
-            int k = 1;
-            for (int i = 0; i < info.Length; i++)
-            {
-                dgv[k++, rownumber].Value = info[i];
-            }
-        }
-
-        /// <summary>
         /// Вывод списка книг в DataGridView
         /// <param name="dgv">DataGridView c которой будет происходить работа</param>
         /// <param name="books">Список книг информацию о которых будем выводить</param>
         /// </summary>
         public static void outputBooksStore(DataGridView dgv, List<Book> books)
         {
-            if(books.Count == 0)
-            {
-                dgv.Rows.Clear();
-                dgv.RowCount = 1;
-            }
-            else
-            {
-                dgv.RowCount = books.Count;
-            }
-            books.ForEach(i => outputBook(dgv, i, books.IndexOf(i)));
+            int counter = 0;
+            var columns = from book in books
+                          select new
+                          {
+                              Number = ++counter,
+                              Title = book.Title,
+                              Authors = book.AuthorsToString,
+                              Category = book.Category,
+                              Year = book.Year,
+                              Price = book.Price,
+                              Language = book.Language,
+                              Cover = book.Cover
+                          };
+            dgv.DataSource = columns.ToList();
 
         }
 

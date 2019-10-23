@@ -68,7 +68,7 @@ namespace TaskForEcoCenter.FileUtils.SaveFileUtils
             XElement title = new XElement("title", book.Title);
             XAttribute lang = new XAttribute("lang", book.Language);
             title.Add(lang);
-            List<XElement> authors = getAuthors(book.Author);
+            List<XElement> authors = getAuthors(book.Authors);
             XElement year = new XElement("year", book.Year);       
             XElement price = new XElement("price", book.Price.ToString(CultureInfo.InvariantCulture));
 
