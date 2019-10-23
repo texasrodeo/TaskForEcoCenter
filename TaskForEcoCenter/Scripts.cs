@@ -23,7 +23,7 @@ namespace TaskForEcoCenter
                           {
                               Number = ++counter,
                               Title = book.Title,
-                              Authors = book.AuthorsToString,
+                              Authors = book.AuthorsToString(),
                               Category = book.Category,
                               Year = book.Year,
                               Price = book.Price,
